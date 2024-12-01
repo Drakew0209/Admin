@@ -1,0 +1,412 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <title>Báo cáo doanh thu | Quản trị Admin</title>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <!-- Main CSS-->
+  <link rel="stylesheet" type="text/css" href="css/main.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/boxicons@latest/css/boxicons.min.css">
+  <!-- or -->
+  <link rel="stylesheet" href="https://unpkg.com/boxicons@latest/css/boxicons.min.css">
+  <!-- Font-icon css-->
+  <link rel="stylesheet" type="text/css"
+    href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/2.1.2/sweetalert.min.js"></script>
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.2/css/all.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jquery-confirm/3.3.2/jquery-confirm.min.css">
+
+  <style>
+    .statistical__filter {
+        display: flex;
+
+    }
+    .statistical__filter select {
+        margin-bottom: 10px;
+        margin-right: 10px;
+        padding: 10px;
+    }
+
+    .statistical__filter_1 {
+        display: flex;  
+        flex-direction: column;
+        margin: 0 15px;
+    }
+
+    .xstk {
+        width: 10px;
+        margin-bottom: 10px;
+    }
+
+  </style>
+</head>
+
+<body onload="time()" class="app sidebar-mini rtl">
+  <!-- Navbar-->
+  <header class="app-header">
+    <!-- Sidebar toggle button--><a class="app-sidebar__toggle" href="#" data-toggle="sidebar"
+      aria-label="Hide Sidebar"></a>
+    <!-- Navbar Right Menu-->
+    <ul class="app-nav">
+
+
+      <!-- User Menu-->
+      <li><a class="app-nav__item" href="/index.html"><i class='bx bx-log-out bx-rotate-180'></i> </a>
+
+      </li>
+    </ul>
+  </header>
+  <!-- Sidebar menu-->
+  <div class="app-sidebar__overlay" data-toggle="sidebar"></div>
+  <aside class="app-sidebar">
+    <div class="app-sidebar__user"><img class="app-sidebar__user-avatar" src="/images/hay.jpg" width="50px"
+        alt="User Image">
+      <div>
+        <p class="app-sidebar__user-name"><b>Đạt G</b></p>
+        <p class="app-sidebar__user-designation">Chào mừng bạn trở lại</p>
+      </div>
+    </div>
+    <hr>
+    <ul class="app-menu">
+        <li><a class="app-menu__item haha" href="phan-mem-ban-hang.html"><i class='app-menu__icon bx bx-cart-alt'></i>
+            <span class="app-menu__label">POS Bán Hàng</span></a></li>
+        <li><a class="app-menu__item active" href="index.html"><i class='app-menu__icon bx bx-tachometer'></i><span
+              class="app-menu__label">Bảng điều khiển</span></a></li>
+        <li><a class="app-menu__item " href="table-data-table.html"><i class='app-menu__icon bx bx-id-card'></i> <span
+              class="app-menu__label">Quản lý người dùng</span></a></li>
+        <li><a class="app-menu__item" href="table-data-product.html"><i
+              class='app-menu__icon bx bx-purchase-tag-alt'></i><span class="app-menu__label">Quản lý sản phẩm</span></a>
+        </li>
+        <li><a class="app-menu__item" href="table-data-oder.html"><i class='app-menu__icon bx bx-task'></i><span
+              class="app-menu__label">Quản lý đơn hàng</span></a></li>
+        <li><a class="app-menu__item" href="quan-ly-bao-cao.html"><i
+              class='app-menu__icon bx bx-pie-chart-alt-2'></i><span class="app-menu__label">Báo cáo doanh thu</span></a>
+        </li>
+        <li><a class="app-menu__item" href="#"><i class='app-menu__icon bx bx-cog'></i><span class="app-menu__label">Cài
+              đặt hệ thống</span></a></li>
+      </ul>
+  </aside>
+  <main class="app-content">
+    <div class="row">
+      <div class="col-md-12">
+        <div class="app-title">
+          <ul class="app-breadcrumb breadcrumb">
+            <li class="breadcrumb-item"><a href="#"><b>Báo cáo doanh thu  </b></a></li>
+          </ul>
+          <div id="clock"></div>
+        </div>
+      </div>
+    </div>
+        <div class="row">
+            <div class="col-md-6 col-lg-3">
+                <div class="widget-small primary coloured-icon"><i class='icon  bx bxs-user fa-3x'></i>
+                    <div class="info">
+                        <h4>Số lượng admin quản trị</h4>
+                        <p><b>5 nhân viên</b></p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-6 col-lg-3">
+                <div class="widget-small info coloured-icon"><i class='icon bx bxs-purchase-tag-alt fa-3x' ></i>
+                    <div class="info">
+                        <h4>Tổng sản phẩm</h4>
+                        <p><b>32 sản phẩm</b></p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-6 col-lg-3">
+                <div class="widget-small warning coloured-icon"><i class='icon fa-3x bx bxs-shopping-bag-alt'></i>
+                    <div class="info">
+                        <h4>Tổng đơn hàng</h4>
+                        <p><b>500 đơn hàng</b></p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-6 col-lg-3">
+                <div class="widget-small danger coloured-icon"><i class='icon fa-3x bx bxs-info-circle' ></i>
+                    <div class="info">
+                        <h4>Bị cấm</h4>
+                        <p><b>1 nhân viên</b></p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-6 col-lg-3">
+                <div class="widget-small primary coloured-icon"><i class='icon fa-3x bx bxs-chart' ></i>
+                    <div class="info">
+                        <h4>Tổng danh thu</h4>
+                        <p><b>99.000.000 đ</b></p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-6 col-lg-3">
+                <div class="widget-small warning coloured-icon"><i class='icon fa-3x bx bxs-tag-x' ></i>
+                    <div class="info">
+                        <h4>Hết hàng</h4>
+                        <p><b>1 sản phẩm</b></p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-6 col-lg-3">
+                <div class="widget-small danger coloured-icon"><i class='icon fa-3x bx bxs-receipt' ></i>
+                    <div class="info">
+                        <h4>Đơn hàng hủy</h4>
+                        <p><b>5 đơn hàng</b></p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <form class="statistical__filter">
+                <div class="statistical__filter_1">
+                    <label for="filter__select">Thống kê: </label>
+                    <select name="filter__select" id="filter__select" class="mr-3">
+                        <option value="">Tất cả</option>
+                        <option value="">Doanh số</option>
+                        <option value="">Sản phẩm bán chạy</option>
+                        <option value="">Người dùng</option>
+                        <option value="">Đơn hàng</option>
+                    </select>
+                    <label for="product">Loại sản phẩm: </label>
+                    <select name="" id="product" class="mr-3">
+                        <option value="">Giải trí</option> 
+                        <option value="">Làm việc</option> 
+                        <option value="">Học tập </option>
+                        <option value="">Game Steam </option>
+                        <option value="">Edit Ảnh - Video </option>
+                        <option value="">Window, Office</option> 
+                        <option value="">Steam Wallet </option>
+                        <option value="">Xbox, iTunes Gift Card</option>
+                    </select>
+                    <label for="filter__date">Từ</label>
+                    <input style="padding: 7px;" type="date" id="filter__date">
+                    <label for="filter__dateout">đến</label>
+                    <input style="padding: 7px;" type="date" id="filter__dateout ">
+                    <label for="date__or">hoặc</label>
+                    <select name="" id="date__or">
+                        <option value="">-- Chọn khoảng thời gian --</option>
+                        <option value="">Tuần nay</option>
+                        <option value="">Tháng nay</option>
+                        <option value="">3 tháng nay</option>
+                        <option value="">6 tháng nay</option>
+                        <option value="">Năm nay</option>
+                    </select>
+                   <div class="xstk"><button type="submit" class="btn btn-success mx-auto mt-3 d-block">Thống kê</button></div> 
+                </div>
+            </form>
+            <div class="col-md-12">
+                <div class="tile">
+                    <div>
+                        <h3 class="tile-title">SẢN PHẨM BÁN CHẠY</h3>
+                    </div>
+                    <div class="tile-body">
+                        <table class="table table-hover table-bordered" id="sampleTable">
+                            <thead>
+                                <tr>
+                                    <th>Mã sản phẩm</th>
+                                    <th>Tên sản phẩm</th>
+                                    <th>Giá tiền</th>
+                                    <th>Danh mục</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>#1</td>
+                                    <td>Youtube Premium 1 năm</td>
+                                    <td>499.000 đ</td>
+                                    <td>Giải trí</td>
+                                </tr>
+                                <tr>
+                                    <td>#11</td>
+                                    <td>ChatGPT Plus 1 tháng</td>
+                                    <td>490.000 đ</td>
+                                    <td>Học tập</td>
+                                </tr>
+                                <tr>
+                                    <td>#21</td>
+                                    <td>Grand Theft Auto V - GTA V</td>
+                                    <td>459.000 đ</td>
+                                    <td>Game</td>
+                                </tr>
+                                <tr>
+                                    <td>#24</td>
+                                    <td>Steam Wallet Code 100 HKD</td>
+                                    <td>350.000 đ</td>
+                                    <td>STEAM</td>
+                                </tr>
+                                <tr>
+                                    <td>#16</td>
+                                    <td>Windows 11 Professional CD key</td>
+                                    <td>290.000 đ</td>
+                                    <td>Microsoft, office</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+                <div class="col-md-12">
+                    <div class="tile">
+                        <div>
+                            <h3 class="tile-title">TỔNG ĐƠN HÀNG</h3>
+                        </div>
+                        <div class="tile-body">
+                            <table class="table table-hover table-bordered" id="sampleTable">
+                                <thead>
+                                    <tr>
+                                            <th>ID đơn hàng</th>
+                                            <th>Khách hàng</th>
+                                            <th>Đơn hàng</th>
+                                            <th>Số lượng</th>
+                                            <th>Tổng tiền</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                            <td>T01</td>
+                                            <td>Spider-man</td>
+                                            <td>Youtube Premium 1 năm</td>
+                                            <td>15 sản phẩm</td>
+                                            <td>7.500.000 đ</td>
+                                    </tr>
+                                    <tr>
+                                            <td>T02</td>
+                                            <td>Bat-man</td>
+                                            <td>Spotify 6 tháng</td>
+                                            <td>100 sản phẩm</td>
+                                            <td>19.000.000 đ</td>   
+                                    </tr>
+                                    <tr>
+                                            <td>T03</td>
+                                            <td>Iron-man</td>
+                                            <td>Grand Theft Auto V - GTA V</td>
+                                            <td>100 sản phẩm</td>
+                                            <td>46.000.000 đ</td>
+                                    </tr>
+                                    <tr>
+                                            <td>T04</td>
+                                            <td>Thor</td>
+                                            <td>God of war</td>
+                                            <td>10 sản phẩm</td>
+                                            <td>12.000.000 đ</td>
+                                    </tr>
+                                    <tr>
+                                            <td>T05</td>
+                                            <td>Captain America</td>
+                                            <td>Netflix 6 tháng</td>
+                                            <td>2 sản phẩm</td>
+                                            <td>1.300.000 đ</td>
+                                    </tr>
+                                    <tr>
+                                            <td>T06</td>
+                                            <td>Thanos</td>
+                                            <td>ChatGPT Plus 1 tháng</td>
+                                            <td>4 sản phẩm</td>
+                                            <td>4.200.000 đ</td>
+                                    </tr>
+                                    <tr>
+                                       <th colspan="4">Tổng cộng:</th>
+                                        <td>99.000.000 đ</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        <div class="row">
+                <div class="col-md-12">
+                    <div class="tile">
+                        <div>
+                            <h3 class="tile-title">SẢN PHẨM ĐÃ HẾT</h3>
+                        </div>
+                        <div class="tile-body">
+                            <table class="table table-hover table-bordered" id="sampleTable">
+                                <thead>
+                                    <tr>
+                                            <th>Mã sản phẩm</th>
+                                            <th>Tên sản phẩm</th>
+                                            <th>Ảnh</th>
+                                            <th>Số lượng</th>
+                                            <th>Tình trạng</th>
+                                            <th>Giá tiền</th>
+                                            <th>Danh mục</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                            <td>#12</td>
+                                            <td>PicsArt Gold</td>
+                                            <td><img src="../img-sanpham/PicsArt Gold-62609.png" alt="" width="100px;"></td>
+                                            <td>0</td>
+                                            <td><span class="badge bg-danger">Hết hàng</span></td>
+                                            <td>329.000 đ</td>
+                                            <td>Edit Ảnh-Video</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        <div class="row">
+            <div class="col-md-12">
+                <div class="tile">
+                    <div>
+                        <h3 class="tile-title">QUẢN TRỊ VIÊN MỚI</h3>
+                    </div>
+                    <div class="tile-body">
+                        <table class="table table-hover table-bordered" id="sampleTable">
+                            <thead>
+                                <tr>
+                                    <th>Họ và tên</th>
+                                    <th>Địa chỉ</th>
+                                    <th>Ngày sinh</th>
+                                    <th>Giới tính</th>
+                                    <th>SĐT</th>
+                                    <th>Chức vụ</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>Trần văn A</td>
+                                    <td>155-157 Võ Văn Tần, Quận 3, Hồ Chí Minh </td>
+                                    <td>12/02/1999</td>
+                                    <td>Nam</td>
+                                    <td>123456789</td>
+                                    <td>Trưởng nhóm</td>
+                                </tr>
+                                <tr>
+                                    <td>Nguyễn Văn B</td>
+                                    <td>6 Lê Văn Lương, Quận 7, Hồ Chí Minh</td>
+                                    <td>22/12/1999</td>
+                                    <td>Nữ</td>
+                                    <td>123456789</td>
+                                    <td>Nhân viên</td>
+                                </tr>
+                                <tr>
+                                    <td>Lý Hồng Hưng</td>
+                                    <td>Ủy ban nhân dân, Tân Phú, Hồ Chí Minh </td>
+                                    <td>23/07/2015</td>
+                                    <td>Nam</td>
+                                    <td>123456789</td>
+                                    <td>Công An</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </main>
+
+</body>
+
+</html>

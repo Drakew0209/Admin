@@ -1,0 +1,959 @@
+<!DOCTYPE html>
+<html lang="en">
+
+    <head>
+        <title>Danh sách sản phẩm | Quản trị Admin</title>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <!-- Main CSS-->
+        <link rel="stylesheet" type="text/css" href="css/main.css">
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/boxicons@latest/css/boxicons.min.css">
+        <!-- or -->
+        <link rel="stylesheet" href="https://unpkg.com/boxicons@latest/css/boxicons.min.css">
+        <!-- Font-icon css-->
+        <link rel="stylesheet" type="text/css"
+          href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/2.1.2/sweetalert.min.js"></script>
+        <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.2/css/all.css">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jquery-confirm/3.3.2/jquery-confirm.min.css">
+
+        <script type="text/javascript" src="/ckeditor/ckeditor.js"></script>
+        <script src="http://code.jquery.com/jquery.min.js" type="text/javascript"></script>
+        <script>
+      
+          function readURL(input, thumbimage) {
+            if (input.files && input.files[0]) { //Sử dụng  cho Firefox - chrome
+              var reader = new FileReader();
+              reader.onload = function (e) {
+                $("#thumbimage").attr('src', e.target.result);
+              }
+              reader.readAsDataURL(input.files[0]);
+            }
+            else { // Sử dụng cho IE
+              $("#thumbimage").attr('src', input.value);
+      
+            }
+            $("#thumbimage").show();
+            $('.filename').text($("#uploadfile").val());
+            $('.Choicefile').css('background', '#14142B');
+            $('.Choicefile').css('cursor', 'default');
+            $(".removeimg").show();
+            $(".Choicefile").unbind('click');
+      
+          }
+          $(document).ready(function () {
+            $(".Choicefile").bind('click', function () {
+              $("#uploadfile").click();
+      
+            });
+            $(".removeimg").click(function () {
+              $("#thumbimage").attr('src', '').hide();
+              $("#myfileupload").html('<input type="file" id="uploadfile"  onchange="readURL(this);" />');
+              $(".removeimg").hide();
+              $(".Choicefile").bind('click', function () {
+                $("#uploadfile").click();
+              });
+              $('.Choicefile').css('background', '#14142B');
+              $('.Choicefile').css('cursor', 'pointer');
+              $(".filename").text("");
+            });
+          })
+        </script>
+  <style>
+    .Choicefile {
+      display: block;
+      background: #14142B;
+      border: 1px solid #fff;
+      color: #fff;
+      width: 150px;
+      text-align: center;
+      text-decoration: none;
+      cursor: pointer;
+      padding: 5px 0px;
+      border-radius: 5px;
+      font-weight: 500;
+      align-items: center;
+      justify-content: center;
+      margin-left: 13px;
+    }
+
+    .Choicefile:hover {
+      text-decoration: none;
+      color: white;
+    }
+
+    #uploadfile,
+    .removeimg {
+      display: none;
+    }
+
+    #thumbbox {
+      position: relative;
+      width: 100%;
+      margin-bottom: 20px;
+    }
+
+    .removeimg {
+      height: 25px;
+      position: absolute;
+      background-repeat: no-repeat;
+      top: 5px;
+      left: 5px;
+      background-size: 25px;
+      width: 25px;
+      /* border: 3px solid red; */
+      border-radius: 50%;
+
+    }
+
+    .removeimg::before {
+      -webkit-box-sizing: border-box;
+      box-sizing: border-box;
+      content: '';
+      border: 1px solid red;
+      background: red;
+      text-align: center;
+      display: block;
+      margin-top: 11px;
+      transform: rotate(45deg);
+    }
+
+    .removeimg::after {
+      /* color: #FFF; */
+      /* background-color: #DC403B; */
+      content: '';
+      background: red;
+      border: 1px solid red;
+      text-align: center;
+      display: block;
+      transform: rotate(-45deg);
+      margin-top: -2px;
+    }
+  </style>
+      </head>
+
+<body onload="time()" class="app sidebar-mini rtl">
+   <!-- Navbar-->
+   <header class="app-header">
+    <!-- Sidebar toggle button--><a class="app-sidebar__toggle" href="#" data-toggle="sidebar"
+      aria-label="Hide Sidebar"></a>
+    <!-- Navbar Right Menu-->
+    <ul class="app-nav">
+
+
+      <!-- User Menu-->
+      <li><a class="app-nav__item" href="/index.html"><i class='bx bx-log-out bx-rotate-180'></i> </a>
+
+      </li>
+    </ul>
+  </header>
+  <!-- Sidebar menu-->
+  <div class="app-sidebar__overlay" data-toggle="sidebar"></div>
+  <aside class="app-sidebar">
+    <div class="app-sidebar__user"><img class="app-sidebar__user-avatar" src="/images/hay.jpg" width="50px"
+        alt="User Image">
+      <div>
+        <p class="app-sidebar__user-name"><b>Đạt G</b></p>
+        <p class="app-sidebar__user-designation">Chào mừng bạn trở lại</p>
+      </div>
+    </div>
+    <hr>
+    <ul class="app-menu">
+      <li><a class="app-menu__item haha" href="phan-mem-ban-hang.html"><i class='app-menu__icon bx bx-cart-alt'></i>
+          <span class="app-menu__label">POS Bán Hàng</span></a></li>
+      <li><a class="app-menu__item active" href="index.html"><i class='app-menu__icon bx bx-tachometer'></i><span
+            class="app-menu__label">Bảng điều khiển</span></a></li>
+      <li><a class="app-menu__item " href="table-data-table.html"><i class='app-menu__icon bx bx-id-card'></i> <span
+            class="app-menu__label">Quản lý người dùng</span></a></li>
+      <li><a class="app-menu__item" href="table-data-product.html"><i
+            class='app-menu__icon bx bx-purchase-tag-alt'></i><span class="app-menu__label">Quản lý sản phẩm</span></a>
+      </li>
+      <li><a class="app-menu__item" href="table-data-oder.html"><i class='app-menu__icon bx bx-task'></i><span
+            class="app-menu__label">Quản lý đơn hàng</span></a></li>
+      <li><a class="app-menu__item" href="quan-ly-bao-cao.html"><i
+            class='app-menu__icon bx bx-pie-chart-alt-2'></i><span class="app-menu__label">Báo cáo doanh thu</span></a>
+      </li>
+      <li><a class="app-menu__item" href="#"><i class='app-menu__icon bx bx-cog'></i><span class="app-menu__label">Cài
+            đặt hệ thống</span></a></li>
+    </ul>
+  </aside>
+    <main class="app-content">
+        <div class="app-title">
+            <ul class="app-breadcrumb breadcrumb side">
+                <li class="breadcrumb-item active"><a href="#"><b>Danh sách sản phẩm</b></a></li>
+            </ul>
+            <div id="clock"></div>
+        </div>
+        <div class="row">
+            <div class="col-md-12">
+                <div class="tile">
+                    <div class="tile-body">
+                        <div class="row element-button">
+                            <div class="col-sm-2">
+              
+                              <a class="btn btn-add btn-sm" href="form-add-san-pham.html" title="Thêm"><i class="fas fa-plus"></i>
+                                Tạo mới sản phẩm</a>
+                            </div>
+                            <div class="col-sm-2">
+                              <a class="btn btn-delete btn-sm nhap-tu-file" type="button" title="Nhập" onclick="myFunction(this)"><i
+                                  class="fas fa-file-upload"></i> Tải từ file</a>
+                            </div>
+              
+                            <div class="col-sm-2">
+                              <a class="btn btn-delete btn-sm print-file" type="button" title="In" onclick="myApp.printTable()"><i
+                                  class="fas fa-print"></i> In dữ liệu</a>
+                            </div>
+                            <div class="col-sm-2">
+                              <a class="btn btn-delete btn-sm print-file js-textareacopybtn" type="button" title="Sao chép"><i
+                                  class="fas fa-copy"></i> Sao chép</a>
+                            </div>
+              
+                            <div class="col-sm-2">
+                              <a class="btn btn-excel btn-sm" href="" title="In"><i class="fas fa-file-excel"></i> Xuất Excel</a>
+                            </div>
+                            <div class="col-sm-2">
+                              <a class="btn btn-delete btn-sm pdf-file" type="button" title="In" onclick="myFunction(this)"><i
+                                  class="fas fa-file-pdf"></i> Xuất PDF</a>
+                            </div>
+                            <div class="col-sm-2">
+                              <a class="btn btn-delete btn-sm" type="button" title="Xóa" onclick="myFunction(this)"><i
+                                  class="fas fa-trash-alt"></i> Xóa tất cả </a>
+                            </div>
+                          </div>
+                        <table class="table table-hover table-bordered" id="sampleTable">
+                            <thead>
+                                <tr>
+                                    <th width="10"><input type="checkbox" id="all"></th>
+                                    <th>Mã sản phẩm</th>
+                                    <th>Tên sản phẩm</th>
+                                    <th>Ảnh</th>
+                                    <th>Số lượng</th>
+                                    <th>Tình trạng</th>
+                                    <th>Giá tiền</th>
+                                    <th>Danh mục</th>
+                                    <th>Chức năng</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td width="10"><input type="checkbox" name="check1" value="1"></td>
+                                    <td>#1</td>
+                                    <td>Youtube Premium 1 năm</td>
+                                    <td><img src="/img-sanpham/youtube premium img.png" alt="" width="100px;"></td>
+                                    <td>40</td>
+                                    <td><span class="badge bg-success">Còn hàng</span></td>
+                                    <td>499.000 đ</td>
+                                    <td>Giải Trí</td>
+                                    <td><button class="btn btn-primary btn-sm trash" type="button" title="Xóa"
+                                            onclick="myFunction(this)"><i class="fas fa-trash-alt"></i> 
+                                        </button>
+                                        <button class="btn btn-primary btn-sm edit" type="button" title="Sửa" id="show-emp" data-toggle="modal"
+                      data-target="#ModalUP"><i class="fas fa-edit"></i></button>
+                                       
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td width="10"><input type="checkbox" name="check1" value="1"></td>
+                                    <td>#2</td>
+                                    <td>Spotify 1 tháng</td>
+                                    <td><img src="/img-sanpham/Spotify-TaiKhoan-1m-53726.png" alt="" width="100px;"></td>
+                                    <td>70</td>
+                                    <td><span class="badge bg-success">Còn hàng</span></td>
+                                    <td>35.000 đ</td>
+                                    <td>Giải Trí</td>
+                                    <td><button class="btn btn-primary btn-sm trash" type="button" title="Xóa"
+                                            onclick="myFunction(this)"><i class="fas fa-trash-alt"></i>
+                                        </button>
+                                        <button class="btn btn-primary btn-sm edit" type="button" title="Sửa" id="show-emp" data-toggle="modal"
+                      data-target="#ModalUP"><i class="fas fa-edit"></i></button>
+                                       
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td width="10"><input type="checkbox" name="check1" value="1"></td>
+                                    <td>#3</td>
+                                    <td>Spotify 1 năm</td>
+                                    <td><img src="/img-sanpham/Spotify-GiaHan-1y.png" alt="" width="100px;"></td>
+                                    <td>40</td>
+                                     <td><span class="badge bg-success">Còn hàng</span></td>
+                                    <td>349.000 đ</td>
+                                    <td>Giải Trí</td>
+                                    <td><button class="btn btn-primary btn-sm trash" type="button" title="Xóa"
+                                            onclick="myFunction(this)"><i class="fas fa-trash-alt"></i>
+                                        </button>
+                                        <button class="btn btn-primary btn-sm edit" type="button" title="Sửa" id="show-emp" data-toggle="modal"
+                      data-target="#ModalUP"><i class="fas fa-edit"></i></button>
+
+                                      
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td width="10"><input type="checkbox" name="check1" value="1"></td>
+                                    <td>#4</td>
+                                    <td>Spotify 6 tháng</td>
+                                    <td><img src="/img-sanpham/Spotify-TaiKhoan-6m.png" alt="" width="100px;"></td>
+                                    <td>50</td>
+                                     <td><span class="badge bg-success">Còn hàng</span></td>
+                                    <td>189.000 đ</td>
+                                    <td>Giải Trí</td>
+                                    <td><button class="btn btn-primary btn-sm trash" type="button" title="Xóa"
+                                            onclick="myFunction(this)"><i class="fas fa-trash-alt"></i>
+                                        </button>
+                                        <button class="btn btn-primary btn-sm edit" type="button" title="Sửa" id="show-emp" data-toggle="modal"
+                      data-target="#ModalUP"><i class="fas fa-edit"></i></button> 
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td width="10"><input type="checkbox" name="check1" value="1"></td>
+                                    <td>#5</td>
+                                    <td>Netflix 1 tháng</td>
+                                    <td><img src="/img-sanpham/netflix premium img.png" alt="" width="100px;"></td>
+                                    <td>50</td>
+                                     <td><span class="badge bg-success">Còn hàng</span></td>
+                                    <td>89.000 đ</td>
+                                    <td>Giải Trí</td>
+                                    <td><button class="btn btn-primary btn-sm trash" type="button" title="Xóa"
+                                            onclick="myFunction(this)"><i class="fas fa-trash-alt"></i>
+                                        </button>
+                                        <button class="btn btn-primary btn-sm edit" type="button" title="Sửa" id="show-emp" data-toggle="modal"
+                      data-target="#ModalUP"><i class="fas fa-edit"></i></button>
+                                       
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td width="10"><input type="checkbox" name="check1" value="1"></td>
+                                    <td>#6</td>
+                                    <td>Netflix 6 tháng</td>
+                                    <td><img src="/img-sanpham/NETFLIX-6thang (1)-78668.png" alt="" width="100px;"></td>
+                                    <td>55</td>
+                                     <td><span class="badge bg-success">Còn hàng</span></td>
+                                    <td>649.000 đ</td>
+                                    <td>Giải Trí</td>
+                                    <td><button class="btn btn-primary btn-sm trash" type="button" title="Xóa"
+                                            onclick="myFunction(this)"><i class="fas fa-trash-alt"></i>
+                                        </button>
+                                        <button class="btn btn-primary btn-sm edit" type="button" title="Sửa" id="show-emp" data-toggle="modal"
+                      data-target="#ModalUP"><i class="fas fa-edit"></i></button>
+                                        
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td width="10"><input type="checkbox" name="check1" value="1"></td>
+                                    <td>#7</td>
+                                    <td>Canva</td>
+                                    <td><img src="/img-sanpham/canva img.png" alt="" width="100px;"></td>
+                                    <td>38</td>
+                                     <td><span class="badge bg-success">Còn hàng</span></td>
+                                    <td>295.000 đ</td>
+                                    <td>Học Tập</td>
+                                    <td><button class="btn btn-primary btn-sm trash" type="button" title="Xóa"
+                                            onclick="myFunction(this)"><i class="fas fa-trash-alt"></i>
+                                        </button>
+                                        <button class="btn btn-primary btn-sm edit" type="button" title="Sửa" id="show-emp" data-toggle="modal"
+                      data-target="#ModalUP"><i class="fas fa-edit"></i> </button>
+                                    
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td width="10"><input type="checkbox" name="check1" value="1"></td>
+                                    <td>#8</td>
+                                    <td>Duolingo Super 1 tháng</td>
+                                    <td><img src="/img-sanpham/Duolingo tai khoan 1m.jpg" alt="" width="100px;"></td>
+                                    <td>80</td>
+                                     <td><span class="badge bg-success">Còn hàng</span></td>
+                                    <td>19.000 đ</td>
+                                    <td>Học tập</td>
+                                    <td><button class="btn btn-primary btn-sm trash" type="button" title="Xóa"
+                                            onclick="myFunction(this)"><i class="fas fa-trash-alt"></i>
+                                        </button>
+                                        <button class="btn btn-primary btn-sm edit" type="button" title="Sửa" id="show-emp" data-toggle="modal"
+                      data-target="#ModalUP"><i class="fas fa-edit"></i></button>
+                                      
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td width="10"><input type="checkbox" name="check1" value="1"></td>
+                                    <td>#9</td>
+                                    <td>Grammarly premium 1 tháng</td>
+                                    <td><img src="/img-sanpham/Grammarly Premium-1m.png" alt="" width="100px;"></td>
+                                    <td>80</td>
+                                     <td><span class="badge bg-success">Còn hàng</span></td>
+                                    <td>109.000 đ</td>
+                                    <td>Học tập</td>
+                                    <td><button class="btn btn-primary btn-sm trash" type="button" title="Xóa"
+                                            onclick="myFunction(this)"><i class="fas fa-trash-alt"></i>
+                                        </button>
+                                        <button class="btn btn-primary btn-sm edit" type="button" title="Sửa" id="show-emp" data-toggle="modal"
+                      data-target="#ModalUP"><i class="fas fa-edit"></i></button>
+                                       
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td width="10"><input type="checkbox" name="check1" value="1"></td>
+                                    <td>#10</td>
+                                    <td>Microsoft 365</td>
+                                    <td><img src="/img-sanpham/microsoft 365 img.png" alt="" width="100px;"></td>
+                                    <td>46</td>
+                                     <td><span class="badge bg-success">Còn hàng</span></td>
+                                    <td>390.000 đ</td>
+                                    <td>Làm việc</td>
+                                    <td><button class="btn btn-primary btn-sm trash" type="button" title="Xóa"
+                                            onclick="myFunction(this)"><i class="fas fa-trash-alt"></i>
+                                        </button>
+                                        <button class="btn btn-primary btn-sm edit" type="button" title="Sửa" id="show-emp" data-toggle="modal"
+                      data-target="#ModalUP"><i class="fas fa-edit"></i></button>
+                                      
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td width="10"><input type="checkbox" name="check1" value="1"></td>
+                                    <td>#11</td>
+                                    <td>ChatGPT Plus 1 tháng</td>
+                                    <td><img src="/img-sanpham/ChatGPT Plus NangCap-1m-50562.png" alt="" width="100px;"></td>
+                                    <td>66</td>
+                                     <td><span class="badge bg-success">Còn hàng</span></td>
+                                    <td>490.000 đ</td>
+                                    <td>Học tập</td>
+                                    <td><button class="btn btn-primary btn-sm trash" type="button" title="Xóa"
+                                            onclick="myFunction(this)"><i class="fas fa-trash-alt"></i>
+                                        </button>
+                                        <button class="btn btn-primary btn-sm edit" type="button" title="Sửa" id="show-emp" data-toggle="modal"
+                      data-target="#ModalUP"><i class="fas fa-edit"></i></button>
+                                        
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td width="10"><input type="checkbox" name="check1" value="1"></td>
+                                    <td>#12</td>
+                                    <td>PicsArt Gold</td>
+                                    <td><img src="/img-sanpham/PicsArt Gold-62609.png" alt="" width="100px;"></td>
+                                    <td>0</td>
+                                    <td><span class="badge bg-danger">Hết hàng</span></td>
+                                    <td>329.000 đ</td>
+                                    <td>Edit Ảnh - Video</td>
+                                    <td><button class="btn btn-primary btn-sm trash" type="button" title="Xóa"
+                                            onclick="myFunction(this)"><i class="fas fa-trash-alt"></i>
+                                        </button>
+                                        <button class="btn btn-primary btn-sm edit" type="button" title="Sửa" id="show-emp" data-toggle="modal"
+                      data-target="#ModalUP"><i class="fas fa-edit"></i></button>
+                                      
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td width="10"><input type="checkbox" name="check1" value="1"></td>
+                                    <td>#13</td>
+                                    <td>Notion Pro</td>
+                                    <td><img src="/img-sanpham/Notion Pro img.png" alt="" width="100px;"></td>
+                                    <td>73</td>
+                                     <td><span class="badge bg-success">Còn hàng</span></td>
+                                    <td>190.000 đ</td>
+                                    <td>Làm việc</td>
+                                    <td><button class="btn btn-primary btn-sm trash" type="button" title="Xóa"
+                                            onclick="myFunction(this)"><i class="fas fa-trash-alt"></i>
+                                        </button>
+                                        <button class="btn btn-primary btn-sm edit" type="button" title="Sửa" id="show-emp" data-toggle="modal"
+                      data-target="#ModalUP"><i class="fas fa-edit"></i></button>
+                                      
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td width="10"><input type="checkbox" name="check1" value="1"></td>
+                                    <td>#14</td>
+                                    <td>AVG </td>
+                                    <td><img src="/img-sanpham/AVG-Antitrack-3tb-47511.png" alt="" width="100px;"></td>
+                                    <td>60</td>
+                                     <td><span class="badge bg-success">Còn hàng</span></td>
+                                    <td>259.000 đ</td>
+                                    <td>Làm việc</td>
+                                    <td><button class="btn btn-primary btn-sm trash" type="button" title="Xóa"
+                                            onclick="myFunction(this)"><i class="fas fa-trash-alt"></i>
+                                        </button>
+                                        <button class="btn btn-primary btn-sm edit" type="button" title="Sửa" id="show-emp" data-toggle="modal"
+                      data-target="#ModalUP"><i class="fas fa-edit"></i></button>
+                                       
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td width="10"><input type="checkbox" name="check1" value="1"></td>
+                                    <td>#15</td>
+                                    <td>Turnitin</td>
+                                    <td><img src="/img-sanpham/Turnitin img.png" alt="" width="100px;"></td>
+                                    <td>65</td>
+                                     <td><span class="badge bg-success">Còn hàng</span></td>
+                                    <td>249.000 đ</td>
+                                    <td>Làm việc</td>
+                                    <td><button class="btn btn-primary btn-sm trash" type="button" title="Xóa"
+                                            onclick="myFunction(this)"><i class="fas fa-trash-alt"></i>
+                                        </button>
+                                        <button class="btn btn-primary btn-sm edit" type="button" title="Sửa" id="show-emp" data-toggle="modal"
+                      data-target="#ModalUP"><i class="fas fa-edit"></i></button>
+                                       
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td width="10"><input type="checkbox" name="check1" value="1"></td>
+                                    <td>#16</td>
+                                    <td>Windows 11 Professional CD key</td>
+                                    <td><img src="/img-sanpham/Windows 11 Professional CD Key.png" alt="" width="100px;"></td>
+                                    <td>60</td>
+                                     <td><span class="badge bg-success">Còn hàng</span></td>
+                                    <td>290.000 đ</td>
+                                    <td>Windows, office</td>
+                                    <td><button class="btn btn-primary btn-sm trash" type="button" title="Xóa"
+                                            onclick="myFunction(this)"><i class="fas fa-trash-alt"></i>
+                                        </button>
+                                        <button class="btn btn-primary btn-sm edit" type="button" title="Sửa" id="show-emp" data-toggle="modal"
+                      data-target="#ModalUP"><i class="fas fa-edit"></i></button>
+                                   
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td width="10"><input type="checkbox" name="check1" value="1"></td>
+                                    <td>#17</td>
+                                    <td>XBox Microsoft Gift Card US - 100$</td>
+                                    <td><img src="/img-sanpham/XBox-100-15017.png" alt="" width="100px;"></td>
+                                    <td>60</td>
+                                     <td><span class="badge bg-success">Còn hàng</span></td>
+                                    <td>2.500.000 đ</td>
+                                    <td>XBox</td>
+                                    <td><button class="btn btn-primary btn-sm trash" type="button" title="Xóa"
+                                            onclick="myFunction(this)"><i class="fas fa-trash-alt"></i>
+                                        </button>
+                                        <button class="btn btn-primary btn-sm edit" type="button" title="Sửa" id="show-emp" data-toggle="modal"
+                      data-target="#ModalUP"><i class="fas fa-edit"></i></button>
+                                   
+                                    </td>
+                                </tr>
+                                                                <tr>
+                                    <td width="10"><input type="checkbox" name="check1" value="1"></td>
+                                    <td>#18</td>
+                                    <td>Assassin's Creed® Origins</td>
+                                    <td><img src="/img-sanpham/assassin.jpg" alt="" width="100px;"></td>
+                                    <td>60</td>
+                                     <td><span class="badge bg-success">Còn hàng</span></td>
+                                    <td>990.000 đ</td>
+                                    <td>Game</td>
+                                    <td><button class="btn btn-primary btn-sm trash" type="button" title="Xóa"
+                                            onclick="myFunction(this)"><i class="fas fa-trash-alt"></i>
+                                        </button>
+                                        <button class="btn btn-primary btn-sm edit" type="button" title="Sửa" id="show-emp" data-toggle="modal"
+                      data-target="#ModalUP"><i class="fas fa-edit"></i></button>
+                                   
+                                    </td>
+                                </tr>
+                                                                <tr>
+                                    <td width="10"><input type="checkbox" name="check1" value="1"></td>
+                                    <td>#19</td>
+                                    <td>God of war</td>
+                                    <td><img src="/img-sanpham/God of war.jpg" alt="" width="100px;"></td>
+                                    <td>60</td>
+                                     <td><span class="badge bg-success">Còn hàng</span></td>
+                                    <td>1.159.000 đ</td>
+                                    <td>Game</td>
+                                    <td><button class="btn btn-primary btn-sm trash" type="button" title="Xóa"
+                                            onclick="myFunction(this)"><i class="fas fa-trash-alt"></i>
+                                        </button>
+                                        <button class="btn btn-primary btn-sm edit" type="button" title="Sửa" id="show-emp" data-toggle="modal"
+                      data-target="#ModalUP"><i class="fas fa-edit"></i></button>
+                                   
+                                    </td>
+                                </tr>
+                                                                <tr>
+                                    <td width="10"><input type="checkbox" name="check1" value="1"></td>
+                                    <td>#20</td>
+                                    <td>Elden ring</td>
+                                    <td><img src="/img-sanpham/elden ring.jpg" alt="" width="100px;"></td>
+                                    <td>60</td>
+                                     <td><span class="badge bg-success">Còn hàng</span></td>
+                                    <td>990.000 đ</td>
+                                    <td>Game</td>
+                                    <td><button class="btn btn-primary btn-sm trash" type="button" title="Xóa"
+                                            onclick="myFunction(this)"><i class="fas fa-trash-alt"></i>
+                                        </button>
+                                        <button class="btn btn-primary btn-sm edit" type="button" title="Sửa" id="show-emp" data-toggle="modal"
+                      data-target="#ModalUP"><i class="fas fa-edit"></i></button>
+                                   
+                                    </td>
+                                    <!-- khánh -->
+                                </tr>
+                                                                <tr>
+                                    <td width="10"><input type="checkbox" name="check1" value="1"></td>
+                                    <td>#21</td>
+                                    <td>Grand Theft Auto V - GTA V </td>
+                                    <td><img src="/img-sanpham/GTA-V.jpg" alt="" width="100px;"></td>
+                                    <td>60</td>
+                                     <td><span class="badge bg-success">Còn hàng</span></td>
+                                    <td>459.000 đ</td>
+                                    <td>Game</td>
+                                    <td><button class="btn btn-primary btn-sm trash" type="button" title="Xóa"
+                                            onclick="myFunction(this)"><i class="fas fa-trash-alt"></i>
+                                        </button>
+                                        <button class="btn btn-primary btn-sm edit" type="button" title="Sửa" id="show-emp" data-toggle="modal"
+                      data-target="#ModalUP"><i class="fas fa-edit"></i></button>
+                                   
+                                    </td>
+                                </tr>
+                                                                <tr>
+                                    <td width="10"><input type="checkbox" name="check1" value="1"></td>
+                                    <td>#22</td>
+                                    <td>Subnautica</td>
+                                    <td><img src="/img-sanpham/subnautica.jpg" alt="" width="100px;"></td>
+                                    <td>60</td>
+                                     <td><span class="badge bg-success">Còn hàng</span></td>
+                                    <td>388.000 đ</td>
+                                    <td>Game</td>
+                                    <td><button class="btn btn-primary btn-sm trash" type="button" title="Xóa"
+                                            onclick="myFunction(this)"><i class="fas fa-trash-alt"></i>
+                                        </button>
+                                        <button class="btn btn-primary btn-sm edit" type="button" title="Sửa" id="show-emp" data-toggle="modal"
+                      data-target="#ModalUP"><i class="fas fa-edit"></i></button>
+                                   
+                                    </td>
+                                </tr>
+                                                                <tr>
+                                    <td width="10"><input type="checkbox" name="check1" value="1"></td>
+                                    <td>#23</td>
+                                    <td>Steam Wallet Code 50 PHP (~21.593 VNĐ)</td>
+                                    <td><img src="/img-sanpham/STEAM 50 HKD.png" alt="" width="100px;"></td>
+                                    <td>60</td>
+                                     <td><span class="badge bg-success">Còn hàng</span></td>
+                                    <td>28.000 đ</td>
+                                    <td>STEAM</td>
+                                    <td><button class="btn btn-primary btn-sm trash" type="button" title="Xóa"
+                                            onclick="myFunction(this)"><i class="fas fa-trash-alt"></i>
+                                        </button>
+                                        <button class="btn btn-primary btn-sm edit" type="button" title="Sửa" id="show-emp" data-toggle="modal"
+                      data-target="#ModalUP"><i class="fas fa-edit"></i></button>
+                                   
+                                    </td>
+                                                                </tr>
+                                                                <tr>
+                                    <td width="10"><input type="checkbox" name="check1" value="1"></td>
+                                    <td>#24</td>
+                                    <td>Steam Wallet Code 100 HKD (~326.600 VNĐ)</td>
+                                    <td><img src="/img-sanpham/STEAM-100-HKD-37245.png" alt="" width="100px;"></td>
+                                    <td>60</td>
+                                     <td><span class="badge bg-success">Còn hàng</span></td>
+                                    <td>350.000 đ</td>
+                                    <td>STEAM</td>
+                                    <td><button class="btn btn-primary btn-sm trash" type="button" title="Xóa"
+                                            onclick="myFunction(this)"><i class="fas fa-trash-alt"></i>
+                                        </button>
+                                        <button class="btn btn-primary btn-sm edit" type="button" title="Sửa" id="show-emp" data-toggle="modal"
+                      data-target="#ModalUP"><i class="fas fa-edit"></i></button>
+                                   
+                                    </td>
+                                  </tr>
+                                                                <tr>
+                                    <td width="10"><input type="checkbox" name="check1" value="1"></td>
+                                    <td>#25</td>
+                                    <td>Steam Wallet Code 400 HKD (~1.306.400 VNĐ)</td>
+                                    <td><img src="/img-sanpham/STEAM 400 HKD.png" alt="" width="100px;"></td>
+                                    <td>60</td>
+                                     <td><span class="badge bg-success">Còn hàng</span></td>
+                                    <td>1.350.000 đ</td>
+                                    <td>STEAM</td>
+                                    <td><button class="btn btn-primary btn-sm trash" type="button" title="Xóa"
+                                            onclick="myFunction(this)"><i class="fas fa-trash-alt"></i>
+                                        </button>
+                                        <button class="btn btn-primary btn-sm edit" type="button" title="Sửa" id="show-emp" data-toggle="modal"
+                      data-target="#ModalUP"><i class="fas fa-edit"></i></button>
+                                   
+                                    </td>
+                                </tr>
+                                                                <tr>
+                                    <td width="10"><input type="checkbox" name="check1" value="1"></td>
+                                    <td>#26</td>
+                                    <td>YouTube Premium + YouTube Music 1 tháng - Gia hạn chính chủ</td>
+                                    <td><img src="/img-sanpham/YouTube Premium Music-1thang.png" alt="" width="100px;"></td>
+                                    <td>60</td>
+                                     <td><span class="badge bg-success">Còn hàng</span></td>
+                                    <td>39.000 đ</td>
+                                    <td>Giải trí</td>
+                                    <td><button class="btn btn-primary btn-sm trash" type="button" title="Xóa"
+                                            onclick="myFunction(this)"><i class="fas fa-trash-alt"></i>
+                                        </button>
+                                        <button class="btn btn-primary btn-sm edit" type="button" title="Sửa" id="show-emp" data-toggle="modal"
+                      data-target="#ModalUP"><i class="fas fa-edit"></i></button>
+                                   
+                                    </td>
+                                </tr>
+                                                                <tr>
+                                    <td width="10"><input type="checkbox" name="check1" value="1"></td>
+                                    <td>#27</td>
+                                    <td>Vnware Workstation 17 pro</td>
+                                    <td><img src="/img-sanpham/VMware Workstation 17 Pro-62551.png" alt="" width="100px;"></td>
+                                    <td>60</td>
+                                     <td><span class="badge bg-success">Còn hàng</span></td>
+                                    <td>149.000 đ</td>
+                                    <td>Làm việc</td>
+                                    <td><button class="btn btn-primary btn-sm trash" type="button" title="Xóa"
+                                            onclick="myFunction(this)"><i class="fas fa-trash-alt"></i>
+                                        </button>
+                                        <button class="btn btn-primary btn-sm edit" type="button" title="Sửa" id="show-emp" data-toggle="modal"
+                      data-target="#ModalUP"><i class="fas fa-edit"></i></button>
+                                   
+                                    </td>
+                                </tr>
+                                                                <tr>
+                                    <td width="10"><input type="checkbox" name="check1" value="1"></td>
+                                    <td>#28</td>
+                                    <td>Zoom Pro ~1 tháng (28 ngày) - Gói nâng cấp</td>
+                                    <td><img src="/img-sanpham/Zoom Pro img.png" alt="" width="100px;"></td>
+                                    <td>60</td>
+                                     <td><span class="badge bg-success">Còn hàng</span></td>
+                                    <td>210.000 đ</td>
+                                    <td>Học tập</td>
+                                    <td><button class="btn btn-primary btn-sm trash" type="button" title="Xóa"
+                                            onclick="myFunction(this)"><i class="fas fa-trash-alt"></i>
+                                        </button>
+                                        <button class="btn btn-primary btn-sm edit" type="button" title="Sửa" id="show-emp" data-toggle="modal"
+                      data-target="#ModalUP"><i class="fas fa-edit"></i></button>
+                                   
+                                    </td>
+                                                                </tr>
+                                                                <tr>
+                                    <td width="10"><input type="checkbox" name="check1" value="1"></td>
+                                    <td>#29</td>
+                                    <td>Code kích hoạt Avast Ultimate (1 năm - 1 thiết bị)</td>
+                                    <td><img src="/img-sanpham/Avast-Ultimate-1tb-73271.png" alt="" width="100px;"></td>
+                                    <td>60</td>
+                                     <td><span class="badge bg-success">Còn hàng</span></td>
+                                    <td>249.000 đ</td>
+                                    <td>Làm việc</td>
+                                    <td><button class="btn btn-primary btn-sm trash" type="button" title="Xóa"
+                                            onclick="myFunction(this)"><i class="fas fa-trash-alt"></i>
+                                        </button>
+                                        <button class="btn btn-primary btn-sm edit" type="button" title="Sửa" id="show-emp" data-toggle="modal"
+                      data-target="#ModalUP"><i class="fas fa-edit"></i></button>
+                                   
+                                    </td>
+                                </tr>
+                                                                <tr>
+                                    <td width="10"><input type="checkbox" name="check1" value="1"></td>
+                                    <td>#30</td>
+                                    <td>Red Dead Redemption 2</td>
+                                    <td><img src="/img-sanpham/Red dead redemption.jpg" alt="" width="100px;"></td>
+                                    <td>60</td>
+                                     <td><span class="badge bg-success">Còn hàng</span></td>
+                                    <td>1.359.000 đ</td>
+                                    <td>Game</td>
+                                    <td><button class="btn btn-primary btn-sm trash" type="button" title="Xóa"
+                                            onclick="myFunction(this)"><i class="fas fa-trash-alt"></i>
+                                        </button>
+                                        <button class="btn btn-primary btn-sm edit" type="button" title="Sửa" id="show-emp" data-toggle="modal"
+                      data-target="#ModalUP"><i class="fas fa-edit"></i></button>
+                                   
+                                    </td>
+                                                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+<!--
+  MODAL
+-->
+<div class="modal fade" id="ModalUP" tabindex="-1" role="dialog" aria-hidden="true" data-backdrop="static"
+data-keyboard="false">
+<div class="modal-dialog modal-dialog-centered" role="document">
+  <div class="modal-content">
+
+    <div class="modal-body">
+      <div class="row">
+        <div class="form-group  col-md-12">
+          <span class="thong-tin-thanh-toan">
+            <h5>Chỉnh sửa thông tin sản phẩm cơ bản</h5>
+          </span>
+        </div>
+      </div>
+      <div class="row">
+        <div class="form-group col-md-6">
+            <label class="control-label">Mã sản phẩm </label>
+            <input class="form-control" type="text" value="D01">
+          </div>
+        <div class="form-group col-md-6">
+            <label class="control-label">Tên sản phẩm</label>
+          <input class="form-control" type="text" required value="Youtube Premium 1 năm">
+        </div>
+        <div class="form-group  col-md-6">
+            <label class="control-label">Số lượng</label>
+          <input class="form-control" type="number" required value="40">
+        </div>
+        <div class="form-group col-md-6 ">
+            <label for="exampleSelect1" class="control-label">Tình trạng sản phẩm</label>
+            <select class="form-control" id="exampleSelect1">
+              <option>Còn hàng</option>
+              <option>Hết hàng</option>
+              <option>Đang nhập hàng</option>
+            </select>
+          </div>
+          <div class="form-group col-md-6">
+            <label class="control-label">Giá bán</label>
+            <input class="form-control" type="text" value="499.000đ">
+          </div>
+          <div class="form-group col-md-6">
+            <label for="exampleSelect1" class="control-label">Danh mục</label>
+            <select class="form-control" id="exampleSelect1">
+               <option value="">Giải trí</option> 
+               <option value="">Làm việc</option> 
+               <option value="">Học tập </option>
+               <option value="">Game Steam </option>
+               <option value="">Edit Ảnh - Video </option>
+               <option value="">Window, Office</option> 
+               <option value="">Steam Wallet </option>
+               <option value="">Xbox, iTunes Gift Card</option>
+            </select>
+          </div>
+          <div id="myfileupload">
+            <input type="file" id="uploadfile" name="ImageUpload" onchange="readURL(this);" />
+          </div>
+          <div id="thumbbox">
+            <img height="450" width="400" alt="Thumb image" id="thumbimage" style="display: none" />
+            <a class="removeimg" href="javascript:"></a>
+          </div>
+          <div id="boxchoice">
+            <a href="javascript:" class="Choicefile"><i class="fas fa-cloud-upload-alt"></i>  Chọn ảnh thay thế</a>
+            <p style="clear:both"></p>
+          </div>
+      </div>
+      <BR>
+      <a href="#" style="    float: right;
+    font-weight: 600;
+    color: #ea0000;">Chỉnh sửa sản phẩm nâng cao</a>
+      <BR>
+      <BR>
+      <button class="btn btn-save" type="button">Lưu lại</button>
+      <a class="btn btn-cancel" data-dismiss="modal" href="#">Hủy bỏ</a>
+      <BR>
+    </div>
+    <div class="modal-footer">
+    </div>
+  </div>
+</div>
+</div>
+<!--
+MODAL
+-->
+
+    <!-- Essential javascripts for application to work-->
+    <script src="js/jquery-3.2.1.min.js"></script>
+    <script src="js/popper.min.js"></script>
+    <script src="js/bootstrap.min.js"></script>
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+    <script src="src/jquery.table2excel.js"></script>
+    <script src="js/main.js"></script>
+    <!-- The javascript plugin to display page loading on top-->
+    <script src="js/plugins/pace.min.js"></script>
+    <!-- Page specific javascripts-->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-confirm/3.3.2/jquery-confirm.min.js"></script>
+    <!-- Data table plugin-->
+    <script type="text/javascript" src="js/plugins/jquery.dataTables.min.js"></script>
+    <script type="text/javascript" src="js/plugins/dataTables.bootstrap.min.js"></script>
+    <script type="text/javascript">
+        $('#sampleTable').DataTable();
+        //Thời Gian
+    function time() {
+      var today = new Date();
+      var weekday = new Array(7);
+      weekday[0] = "Chủ Nhật";
+      weekday[1] = "Thứ Hai";
+      weekday[2] = "Thứ Ba";
+      weekday[3] = "Thứ Tư";
+      weekday[4] = "Thứ Năm";
+      weekday[5] = "Thứ Sáu";
+      weekday[6] = "Thứ Bảy";
+      var day = weekday[today.getDay()];
+      var dd = today.getDate();
+      var mm = today.getMonth() + 1;
+      var yyyy = today.getFullYear();
+      var h = today.getHours();
+      var m = today.getMinutes();
+      var s = today.getSeconds();
+      m = checkTime(m);
+      s = checkTime(s);
+      nowTime = h + " giờ " + m + " phút " + s + " giây";
+      if (dd < 10) {
+        dd = '0' + dd
+      }
+      if (mm < 10) {
+        mm = '0' + mm
+      }
+      today = day + ', ' + dd + '/' + mm + '/' + yyyy;
+      tmp = '<span class="date"> ' + today + ' - ' + nowTime +
+        '</span>';
+      document.getElementById("clock").innerHTML = tmp;
+      clocktime = setTimeout("time()", "1000", "Javascript");
+
+      function checkTime(i) {
+        if (i < 10) {
+          i = "0" + i;
+        }
+        return i;
+      }
+    }
+    </script>
+    <script>
+        function deleteRow(r) {
+            var i = r.parentNode.parentNode.rowIndex;
+            document.getElementById("myTable").deleteRow(i);
+        }
+        jQuery(function () {
+            jQuery(".trash").click(function () {
+                swal({
+                    title: "Cảnh báo",
+                    text: "Bạn có chắc chắn là muốn xóa sản phẩm này?",
+                    buttons: ["Hủy bỏ", "Đồng ý"],
+                })
+                    .then((willDelete) => {
+                        if (willDelete) {
+                            swal("Đã xóa thành công.!", {
+
+                            });
+                        }
+                    });
+            });
+        });
+        oTable = $('#sampleTable').dataTable();
+        $('#all').click(function (e) {
+            $('#sampleTable tbody :checkbox').prop('checked', $(this).is(':checked'));
+            e.stopImmediatePropagation();
+        });
+    </script>
+
+
+<script src="js/jquery-3.2.1.min.js"></script>
+<script src="js/popper.min.js"></script>
+<script src="js/bootstrap.min.js"></script>
+<script src="js/main.js"></script>
+<script src="js/plugins/pace.min.js"></script>
+<script>
+  const inpFile = document.getElementById("inpFile");
+  const loadFile = document.getElementById("loadFile");
+  const previewContainer = document.getElementById("imagePreview");
+  const previewContainer = document.getElementById("imagePreview");
+  const previewImage = previewContainer.querySelector(".image-preview__image");
+  const previewDefaultText = previewContainer.querySelector(".image-preview__default-text");
+  inpFile.addEventListener("change", function () {
+    const file = this.files[0];
+    if (file) {
+      const reader = new FileReader();
+      previewDefaultText.style.display = "none";
+      previewImage.style.display = "block";
+      reader.addEventListener("load", function () {
+        previewImage.setAttribute("src", this.result);
+      });
+      reader.readAsDataURL(file);
+    }
+  });
+
+</script>
+
+
+</body>
+
+</html>
